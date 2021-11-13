@@ -1,6 +1,7 @@
 # ikemcg's neovim config files
 
 Herein lie my neovim config files.  Plugins are installed/updated with vim-plug
+
 I use vim-coc for LSP, and vim-ale for linting and code fixing
 
 ## Installation
@@ -18,7 +19,7 @@ curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \                      
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
-Run `:PlugInstall` from within vim to install the plugins
+Run `:PlugInstall` from within vim to install the plugins, `:PlugUpdate` to update them.
 
 ### Install PHP Codeniffer for PHP linting
 
