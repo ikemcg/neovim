@@ -47,11 +47,11 @@ set backspace=indent,eol,start  " allow backspacing over everything in insert mo
 set hlsearch            " highlight search matches
 set incsearch           " incremental search
 set showmode            " always show what mode we're in
-set nobackup		        " do not keep a backup file, use versions instead
+set nobackup            " do not keep a backup file, use versions instead
 set history=1000        " a more reasonable history
-set ruler		            " show the cursor position all the time
-set showcmd		          " display incomplete commands
-set incsearch		        " do incremental searching
+set ruler               " show the cursor position all the time
+set showcmd             " display incomplete commands
+set incsearch           " do incremental searching
 set nofoldenable        " disable folding
 set laststatus=2        " airline plugin requires that we always show the status line, hidden except for splits othewise
 set wildmenu            " tab completion for opening files
@@ -62,7 +62,7 @@ set shiftwidth=2        " spaces to use for autoindenting
 set softtabstop=2       " when hitting <BS>, pretend like a tab is removed event if spaces
 set expandtab           " expands tabs into spaces, no tab chars
 set wrapscan
-set autoindent		      " always set autoindenting on
+set autoindent          " always set autoindenting on
 set smartindent         " syntax adaptive autoindenting, does not obviate the need for autoindent
 set number              " always show line numbers
 set signcolumn=number   " show line number in sign column
@@ -257,7 +257,7 @@ endif
 " Only define it when not defined already.
 if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-		  \ | wincmd p | diffthis
+      \ | wincmd p | diffthis
 endif
 
 " use custom snippets, ignore defaults
