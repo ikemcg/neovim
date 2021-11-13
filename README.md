@@ -15,7 +15,7 @@ git clone git@github.com:ikemcg/neovim.git ~/.config/nvim
 ### Install vim-plug for neovim
 
 ```
-curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \                                                                          Isaacs-MacBook  10:58 
+curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
