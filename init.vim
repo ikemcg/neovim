@@ -108,9 +108,99 @@ if has("autocmd")
       \| exe "normal g'\"" | endif
 endif
 
-" """""""""""""""""""""""""""""""""""""""""""
+" open splits
+nmap vs :vsplit<cr>
+nmap sp :split<cr>
+
+" Don't use Ex mode, use Q for formatting
+map Q gq
+
+" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+" so that you can undo CTRL-U after inserting a line break.
+inoremap <C-U> <C-G>u<C-U>
+
+" In many terminal emulators the mouse works just fine, thus enable it.
+if has('mouse')
+  set mouse=a
+endif
+
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+" Only define it when not defined already.
+if !exists(":DiffOrig")
+  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+      \ | wincmd p | diffthis
+endif
+
+" simplify moving between windows
+nnoremap <leader>j <C-W><C-J>
+nnoremap <leader>k <C-W><C-K>
+noremap <leader>l <C-W><C-L>
+nnoremap <leader>h <C-W><C-H>
+
+" source .vimrc
+:nnoremap <Leader>sv :so $MYVIMRC<CR>
+:nnoremap <leader>ev :e $MYVIMRC<CR>
+
+" source worklog
+:nnoremap <Leader>wl :e ~/code/worklog<cr>
+
+" delete buffer without removing split
+nmap <silent> <leader>d :bp\|bd #<CR>
+
+"---------------------------- plugins ----------------------------"
+
+" trigger emmet with ,,
+let g:user_emmet_leader_key=','
+
+" airline
+let g:airline_theme='bubblegum'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#ale#enabled = 1
+
+" ALE - Asynchronous Linting Engine
+let g:ale_disable_lsp = 1  " Leave lsp to coc.nvim
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
+highlight ALEErrorSign ctermbg=NONE ctermfg=red
+highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
+
+:nnoremap <Leader>af :ALEFix<CR>
+nmap <silent> <leader>aj :ALENext<cr>
+nmap <silent> <leader>ak :ALEPrevious<cr>
+
+nnoremap <c-l> :bnext<CR>
+nnoremap <c-h> :bprevious<CR>
+
+" pluggin mappings
+nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
+nnoremap <silent> <Leader>t :TagbarToggle<CR>
+
+" mappings for tabularize
+nmap <Leader>tb= :Tabularize /=<CR>
+vmap <Leader>tb= :Tabularize /=<CR>
+nmap <Leader>tb> :Tabularize /=><CR>
+vmap <Leader>tb> :Tabularize /=><CR>
+nmap <Leader>tb: :Tabularize /:\zs<CR>
+vmap <Leader>tb: :Tabularize /:\zs<CR>
+
+" SQL Formatter
+nmap <leader>sf <Plug>SQLU_Formatter<CR>
+vmap <leader>sf <Plug>SQLU_Formatter<CR>
+
+" JsDoc
+map <Leader>jd :JsDoc<cr>
+
+" Fzf
+noremap <silent> <c-p> :Files<CR>
+
+" search recusively upwards for tags file
+set tags=tags;/
+
+" -----------------------------------------------------------------------------
 " Start Coc config
-" """""""""""""""""""""""""""""""""""""""""""
+" -----------------------------------------------------------------------------
+
 set updatetime=300  " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays
 set shortmess+=c    " Don't pass messages to |ins-completion-menu|.
 
@@ -192,14 +282,6 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
 
-" """""""""""""""""""""""""""""""""""""""""""
-" End Coc config
-" """""""""""""""""""""""""""""""""""""""""""
-
-" """""""""""""""""""""""""""""""""""""""""""
-" Start coc-snippets config
-" :CocInstall coc-snippets
-" """""""""""""""""""""""""""""""""""""""""""
 
 " Use <leader>x for convert visual selected code to snippet
 xmap <leader>x  <Plug>(coc-convert-snippet)
@@ -217,121 +299,6 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
-" """""""""""""""""""""""""""""""""""""""""""
-" End coc-snippets config
-" """""""""""""""""""""""""""""""""""""""""""
-
-" Abbreviations
-abbrev pft PHPUnit_Framework_TestCase
-abbrev gm !php artisan generate:model
-abbrev gc !php artisan generate:controller
-abbrev gmig !php artisan generate:migration
-
-" Auto-remove trailing spaces
-"autocmd BufWritePre *.php :%s/\s\+$//e
-
-" Laravel framework commons
-nmap <leader>lr :e app/routes.php<cr>
-nmap <leader>lca :e app/config/app.php<cr>81Gf(%O
-nmap <leader>lcd :e app/config/database.php<cr>
-nmap <leader>lc :e composer.json<cr>
-
-" open splits
-nmap vs :vsplit<cr>
-nmap sp :split<cr>
-
-" Don't use Ex mode, use Q for formatting
-map Q gq
-
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U> <C-G>u<C-U>
-
-" In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-  set mouse=a
-endif
-
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
-if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-      \ | wincmd p | diffthis
-endif
-
-" use custom snippets, ignore defaults
-"let g:snippets_dir = "~/.vim/snippets"
-
-au BufRead,BufNewFile *.es6 set filetype=javascript
-au BufRead,BufNewFile *.phtml set filetype=php
-
-" simplify moving between windows
-nnoremap <leader>j <C-W><C-J>
-nnoremap <leader>k <C-W><C-K>
-noremap <leader>l <C-W><C-L>
-nnoremap <leader>h <C-W><C-H>
-
-" source .vimrc
-:nnoremap <Leader>sv :so $MYVIMRC<CR>
-:nnoremap <leader>ev :e $MYVIMRC<CR>
-
-" source worklog
-:nnoremap <Leader>wl :e ~/projects/worklog<cr>
-
-" delete buffer without removing split
-nmap <silent> <leader>d :bp\|bd #<CR>
-
-"---------------------------- plugins ----------------------------"
-
-let g:airline_theme='bubblegum'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#ale#enabled = 1
-
-" ALE - Asynchronous Linting Engine
-let g:ale_disable_lsp = 1  " Leave lsp to coc.nvim
-let g:ale_sign_error = '✘'
-let g:ale_sign_warning = '⚠'
-highlight ALEErrorSign ctermbg=NONE ctermfg=red
-highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
-
-:nnoremap <Leader>af :ALEFix<CR>
-nmap <silent> <leader>aj :ALENext<cr>
-nmap <silent> <leader>ak :ALEPrevious<cr>
-
-nnoremap <c-l> :bnext<CR>
-nnoremap <c-h> :bprevious<CR>
-
-" pluggin mappings
-nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
-nnoremap <silent> <Leader>t :TagbarToggle<CR>
-
-" mappings for tabularize
-nmap <Leader>tb= :Tabularize /=<CR>
-vmap <Leader>tb= :Tabularize /=<CR>
-nmap <Leader>tb> :Tabularize /=><CR>
-vmap <Leader>tb> :Tabularize /=><CR>
-nmap <Leader>tb: :Tabularize /:\zs<CR>
-vmap <Leader>tb: :Tabularize /:\zs<CR>
-
-nmap <leader>sf <Plug>SQLU_Formatter<CR>
-vmap <leader>sf <Plug>SQLU_Formatter<CR>
-
-" JS Beautify
-map <Leader>b :call JsBeautify()<cr>
-
-" JsDoc
-map <Leader>jd :JsDoc<cr>
-
-" Fzf
-noremap <silent> <c-p> :Files<CR>
-
-" Add phpDocumentor comment just above code block
-let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
-nnoremap <leader>pd :call pdv#DocumentWithSnip()<CR>
-
-" search recusively upwards for tags file
-set tags=tags;/
-
-" show quickfix window when there's an error
-autocmd QuickFixCmdPost * nested cwindow | redraw!
+" -----------------------------------------------------------------------------
+" End Coc config
+" -----------------------------------------------------------------------------
