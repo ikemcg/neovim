@@ -1,0 +1,52 @@
+# A valid snippet should starts with:
+#
+#		snippet trigger_word [ "description" [ options ] ]
+#
+# and end with:
+#
+#		endsnippet
+#
+# Snippet options:
+#
+#		b - Beginning of line.
+#		i - In-word expansion.
+#		w - Word boundary.
+#		r - Regular expression
+#		e - Custom context snippet
+#		A - Snippet will be triggered automatically, when condition matches.
+#
+# Basic example:
+#
+#		snippet emitter "emitter properties" b
+#		private readonly ${1} = new Emitter<$2>()
+#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#		endsnippet
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+
+snippet in:text "BS5 Inline Text Input" b
+<div class="mb-3 row">
+		{{ Form::label('${1:Name}', '${2:Label}', ['class' => 'col-sm-2 col-form-label']) }}
+		<div class="col-sm-10">
+				{{ Form::text('$1', null, ['class' => 'form-control']) }}
+		</div>
+</div>
+endsnippet
+
+snippet in:textarea "BS5 Inline Textarea" b
+<div class="mb-3 row">
+		{{ Form::label('${1:Name}', '${2:Label}', ['class' => 'col-sm-2 col-form-label']) }}
+		<div class="col-sm-10">
+				{{ Form::textarea('$1', null, ['class' => 'form-control']) }}
+		</div>
+</div>
+endsnippet
+
+snippet in:select "BS5 Inline Select" b
+<div class="mb-3 row">
+		{{ Form::label('${1:Name}', '${2:Label}', ['class' => 'col-sm-2 col-form-label']) }}
+		<div class="col-sm-10">
+				{{ Form::select('$1', ${3:Items}, ${4:Value}, ['class' => 'form-control']) }}
+		</div>
+</div>
+endsnippet
