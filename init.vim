@@ -18,6 +18,7 @@ Plug 'honza/vim-snippets'                 " Snippet repository for UltiSnips
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'editorconfig/editorconfig-vim'      " Set editing prefs based on .editorconfig file
 Plug 'pangloss/vim-javascript'            " Improved Javascript indentation and syntax support
+Plug 'mxw/vim-jsx'                        " JSX syntax highlighting
 Plug 'heavenshell/vim-jsdoc'              " Generate JSDoc
 Plug 'tobyS/vmustache'
 Plug 'tobyS/pdv'                          " PHP Documentor
@@ -29,6 +30,7 @@ Plug 'junegunn/fzf'                       " Fuzzy finder for vim
 Plug 'junegunn/fzf.vim'                   " Fuzzy finder for vim
 Plug 'vim-airline/vim-airline'            " Lean & mean status/tabline
 Plug 'vim-airline/vim-airline-themes'     " Airline themes
+Plug 'hashivim/vim-terraform'             " Indentation and highlighting for Terraform files 
 
 call plug#end()
 " end vim-plug
@@ -149,6 +151,9 @@ nnoremap <leader>h <C-W><C-H>
 nmap <silent> <leader>d :bp\|bd #<CR>
 
 "---------------------------- plugins ----------------------------"
+
+" don't enable jsx highlighting on js files, require jsx
+let g:jsx_ext_required = 1
 
 " trigger emmet with ,,
 let g:user_emmet_leader_key=','
@@ -286,6 +291,7 @@ nmap <leader>qf  <Plug>(coc-fix-current)
 xmap <leader>x  <Plug>(coc-convert-snippet)
 
 let g:coc_snippet_next = '<tab>'
+
 
 " -----------------------------------------------------------------------------
 " End Coc config
