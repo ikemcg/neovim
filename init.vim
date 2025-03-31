@@ -4,7 +4,7 @@ set encoding=utf-8
 call plug#begin('~/.config/nvim/plugged')
 
 " let Vundle manage Vundle, required
-Plug 'altercation/vim-colors-solarized'   " Soraized theme
+Plug 'EdenEast/nightfox.nvim'             " nightfox theme
 Plug 'tpope/vim-surround'                 " Mappings for editing surroundings
 Plug 'tpope/vim-repeat'                   " Extend . command support for vim-surroung
 Plug 'dense-analysis/ale'                 " Asynchronous Lint Engine
@@ -30,19 +30,14 @@ Plug 'junegunn/fzf'                       " Fuzzy finder for vim
 Plug 'junegunn/fzf.vim'                   " Fuzzy finder for vim
 Plug 'vim-airline/vim-airline'            " Lean & mean status/tabline
 Plug 'vim-airline/vim-airline-themes'     " Airline themes
-Plug 'hashivim/vim-terraform'             " Indentation and highlighting for Terraform files 
+Plug 'hashivim/vim-terraform'             " Indentation and highlighting for Terraform files
 
 call plug#end()
 " end vim-plug
 
 " colors
 syntax on
-set background=dark
-colorscheme solarized
-
-" Turn on at 120 cols
-highlight ColorColumn guibg=#002b36
-let &colorcolumn=join(range(121,999),",")
+colorscheme dawnfox
 
 filetype plugin indent on       " turn on filetype, filetype plugins, and filetype indent
 set backspace=indent,eol,start  " allow backspacing over everything in insert mode
@@ -66,8 +61,8 @@ set expandtab           " expands tabs into spaces, no tab chars
 set wrapscan
 set autoindent          " always set autoindenting on
 set smartindent         " syntax adaptive autoindenting, does not obviate the need for autoindent
-set number              " always show line numbers
-set signcolumn=number   " show line number in sign column
+"set number              " always show line numbers
+"set signcolumn=number   " show line number in sign column
 set ignorecase          " ignore case when searching
 set smartcase           " turns off ignore case when pattern contains uppercase letter
 set visualbell          " don't beep
@@ -144,8 +139,11 @@ nnoremap <leader>h <C-W><C-H>
 :nnoremap <Leader>sv :so $MYVIMRC<CR>
 :nnoremap <leader>ev :e $MYVIMRC<CR>
 
-" source worklog
+" edit worklog
 :nnoremap <Leader>wl :e ~/code/worklog<cr>
+
+" edit snippets
+:nnoremap <leader>es :e ~/code/snippets<CR>
 
 " delete buffer without removing split
 nmap <silent> <leader>d :bp\|bd #<CR>
@@ -159,7 +157,8 @@ let g:jsx_ext_required = 1
 let g:user_emmet_leader_key=','
 
 " airline
-let g:airline_theme='bubblegum'
+let g:airline_theme='solarized'
+let g:airline_solarized_bg='light'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#ale#enabled = 1
 
@@ -292,6 +291,7 @@ xmap <leader>x  <Plug>(coc-convert-snippet)
 
 let g:coc_snippet_next = '<tab>'
 
+:vmap ,b :!tidy -q -i --show-errors 0<CR>
 
 " -----------------------------------------------------------------------------
 " End Coc config
