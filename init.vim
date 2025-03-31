@@ -97,7 +97,8 @@ nmap <leader>w :w!<cr>
 "Auto change directory to match current file ,cd
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
 
-set pastetoggle=<leader>p
+nnoremap <silent> <leader>p :set paste!<cr>
+inoremap <silent> <leader>p <esc>:set paste!<cr>i
 
 " jump to the last position when reopening a file
 if has("autocmd")
