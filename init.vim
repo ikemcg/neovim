@@ -37,7 +37,7 @@ call plug#end()
 
 " colors
 syntax on
-colorscheme dawnfox
+colorscheme dayfox
 
 filetype plugin indent on       " turn on filetype, filetype plugins, and filetype indent
 set backspace=indent,eol,start  " allow backspacing over everything in insert mode
